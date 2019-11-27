@@ -5,6 +5,8 @@ import {
   ScrollView,
   Dimensions,
   Text,
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
 import { setLocale } from '../utils';
@@ -91,6 +93,8 @@ export default class WeekView extends Component {
     return dates;
   };
 
+ 
+
   render() {
     const {
       numberOfDays,
@@ -128,10 +132,12 @@ export default class WeekView extends Component {
               ref={this.scrollViewRef}
             >
               {dates.map(date => (
+               
                 <View
                   key={date}
-                  style={{ flex: 1, width: SCREEN_WIDTH - 60 }}
+                  style={{ flex: 1, width: SCREEN_WIDTH - 60}}
                 >
+                 
                   <Events
                     key={dates}
                     times={this.times}
@@ -140,7 +146,9 @@ export default class WeekView extends Component {
                     onEventPress={onEventPress}
                     events={events}
                   />
+                
                 </View>
+                
               ))}
             </ScrollView>
           </View>

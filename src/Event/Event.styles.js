@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     borderRadius: 0,
     flex: 1,
+    borderRadius:10
   },
   description: {
     color: '#fff',

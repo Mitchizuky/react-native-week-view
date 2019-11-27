@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {
   View,
   Dimensions,
+  TouchableOpacity,
+  Text,
+  Alert
 } from 'react-native';
 import moment from 'moment';
 
@@ -21,6 +24,13 @@ const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 35;
 
 class Events extends Component {
   onEventPress = (event) => {
+    const { onEventPress } = this.props;
+    if (onEventPress) {
+      onEventPress(event);
+    }
+  };
+
+  onEmptyPress = (event) => {
     const { onEventPress } = this.props;
     if (onEventPress) {
       onEventPress(event);
@@ -124,6 +134,11 @@ class Events extends Component {
     return sortedEvents;
   };
 
+  handlePress(evt,sectionIndex){
+    Alert.alert('kliknil vrstico: ' + parseInt((evt.nativeEvent.locationY+16)/40)+'\nDatum stolpca: '+sectionIndex);
+
+  }
+
   render() {
     const {
       events,
@@ -136,17 +151,21 @@ class Events extends Component {
     totalEvents = this.getEventsWithPosition(totalEvents);
     return (
       <View style={styles.container}>
-        {times.map(time => (
-          <View key={time} style={styles.timeRow}>
-            <View style={styles.timeLabelLine} />
-          </View>
+             {times.map(time => (
+                <View key={time} style={[styles.timeRow,{backgroundColor:'white'}]}>
+                    <View style={styles.timeLabelLine} >
+                    </View>
+                </View>
         ))}
-        <View style={styles.events}>
+        <View  style={[styles.events]}>
+        
           {totalEvents.map((eventsInSection, sectionIndex) => (
+            <TouchableOpacity  style={styles.event} onPress={(evt) => this.handlePress(evt,sectionIndex)}>
             <View
               key={sectionIndex}
-              style={styles.event}
+             
             >
+        
               {eventsInSection.map(item => (
                 <Event
                   key={item.data.id}
@@ -155,8 +174,11 @@ class Events extends Component {
                   onPress={this.onEventPress}
                 />
               ))}
+            
             </View>
+            </TouchableOpacity>
           ))}
+          
         </View>
       </View>
     );
