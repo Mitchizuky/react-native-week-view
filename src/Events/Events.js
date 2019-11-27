@@ -5,7 +5,8 @@ import {
   Dimensions,
   TouchableOpacity,
   Text,
-  Alert
+  Alert,
+  TouchableWithoutFeedback
 } from 'react-native';
 import moment from 'moment';
 
@@ -134,13 +135,25 @@ class Events extends Component {
     return sortedEvents;
   };
 
-  handlePress(evt,sectionIndex){
-    Alert.alert('kliknil vrstico: ' + parseInt((evt.nativeEvent.locationY+16)/40)+'\nDatum stolpca: '+sectionIndex);
+  handleEmptyCellPress(evt,date,columnIndex){
+   
+    let selectedDate = date.toDate();
+    selectedDate.setDate(selectedDate.getDate() + columnIndex);
 
+    let cellData = {
+        hourCellIndex:parseInt((evt.nativeEvent.locationY+16)/40),
+        selectedDate:selectedDate
+    }
+
+    const { onEmptyCellPress } = this.props;
+    if (onEmptyCellPress) {
+      onEmptyCellPress(cellData);
+    }
   }
 
   render() {
     const {
+      currentDate,
       events,
       numberOfDays,
       selectedDate,
@@ -160,7 +173,7 @@ class Events extends Component {
         <View  style={[styles.events]}>
         
           {totalEvents.map((eventsInSection, sectionIndex) => (
-            <TouchableOpacity  style={styles.event} onPress={(evt) => this.handlePress(evt,sectionIndex)}>
+            <TouchableOpacity  style={styles.event} onPress={(evt) => this.handleEmptyCellPress(evt,currentDate,sectionIndex)}>
             <View
               key={sectionIndex}
              
@@ -186,11 +199,13 @@ class Events extends Component {
 }
 
 Events.propTypes = {
+  currentDate:String,
   numberOfDays: PropTypes.oneOf([1, 3, 7]).isRequired,
   events: PropTypes.arrayOf(Event.propTypes.event),
   onEventPress: PropTypes.func,
   selectedDate: PropTypes.instanceOf(Date),
   times: PropTypes.arrayOf(PropTypes.string),
+  onEmptyCellPress:PropTypes.func
 };
 
 Events.defaultProps = {
