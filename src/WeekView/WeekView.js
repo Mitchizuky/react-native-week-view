@@ -30,7 +30,7 @@ export default class WeekView extends Component {
 
   componentDidMount() {
     requestAnimationFrame(() => {
-      this.calendar.scrollTo({ y: 0, x: 2 * (SCREEN_WIDTH - 60), animated: false });
+      this.calendar.scrollTo({ y: 0, x: 2 * (SCREEN_WIDTH - 70), animated: false });
     });
   }
 
@@ -44,7 +44,7 @@ export default class WeekView extends Component {
   }
 
   componentDidUpdate() {
-    this.calendar.scrollTo({ y: 0, x: 2 * (SCREEN_WIDTH - 60), animated: false });
+    this.calendar.scrollTo({ y: 0, x: 2 * (SCREEN_WIDTH - 70), animated: false });
   }
 
   generateTimes = () => {
@@ -136,7 +136,7 @@ export default class WeekView extends Component {
                
                 <View
                   key={date}
-                  style={{ flex: 1, width: SCREEN_WIDTH - 60}}
+                  style={{ flex: 1, width: SCREEN_WIDTH - 70}}
                 >
                  
                   <Events

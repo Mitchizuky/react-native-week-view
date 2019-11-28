@@ -9,9 +9,11 @@ const styles = StyleSheet.create({
   title: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 60,
+    width: 70,
+    paddingLeft:5,
     borderColor: '#fff',
     borderTopWidth: 1,
+    textAlign:'center'
   },
   columns: {
     flex: 1,
