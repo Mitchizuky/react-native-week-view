@@ -22,6 +22,7 @@ const ROW_HEIGHT = 40;
 const CONTENT_HEIGHT = ROW_HEIGHT * TIME_LABELS_COUNT;
 const TIME_LABEL_WIDTH = 40;
 const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 35;
+const CELL_VALUE_IN_MINUTES = 30;
 
 class Events extends Component {
   onEventPress = (event) => {
@@ -139,9 +140,24 @@ class Events extends Component {
    
     let selectedDate = date.toDate();
     selectedDate.setDate(selectedDate.getDate() + columnIndex);
+    let cellRowIndex = parseInt((evt.nativeEvent.locationY+16)/40);
+
+    let cellIndexToMinutes = cellRowIndex * CELL_VALUE_IN_MINUTES;
+    let selectedHour = cellIndexToMinutes/60;
+    let selectedMinutes = cellIndexToMinutes%60;
+
+    if(selectedMinutes === 30){
+        selectedMinutes=0;
+    }
+    else{
+        selectedMinutes=30;
+        selectedHour = selectedHour-1;
+    }
+
+    selectedDate.setHours(selectedHour,selectedMinutes,0,0);
 
     let cellData = {
-        hourCellIndex:parseInt((evt.nativeEvent.locationY+16)/40),
+        hourCellIndex:cellRowIndex,
         selectedDate:selectedDate
     }
 
