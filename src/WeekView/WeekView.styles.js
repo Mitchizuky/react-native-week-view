@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   timeColumn: {
-    paddingTop: 10,
-    width: 60,
+    paddingTop: 7,
+    width: 70,
   },
 });
 
