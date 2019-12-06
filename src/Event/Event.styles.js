@@ -6,12 +6,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingVertical: 3,
     paddingHorizontal: 3,
-    borderRadius: 0,
-    borderWidth:0.5,
-    borderColor:'#ababab',
+    borderWidth: 0.5,
+    borderColor: '#ababab',
     flex: 1,
-    marginRight:1,
-    borderRadius:10
+    marginRight: 1,
+    borderRadius: 10
   },
   description: {
     color: '#000',
