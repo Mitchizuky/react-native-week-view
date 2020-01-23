@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
     height: 40,
   },
   timeText: {
-    fontSize: 12,
+    fontSize: 13,
     textAlign: 'center',
+    color:'#000000'
   },
   timeColumn: {
     paddingTop: 7,
