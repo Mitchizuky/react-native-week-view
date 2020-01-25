@@ -189,10 +189,10 @@ class Events extends Component {
         <View  style={[styles.events]}>
         
           {totalEvents.map((eventsInSection, sectionIndex) => (
-            <TouchableOpacity  style={styles.event} onPress={(evt) => this.handleEmptyCellPress(evt,currentDate,sectionIndex)}>
+            <TouchableWithoutFeedback   onPress={(evt) => this.handleEmptyCellPress(evt,currentDate,sectionIndex)}>
             <View
               key={sectionIndex}
-             
+              style={styles.event}
             >
         
               {eventsInSection.map(item => (
@@ -205,7 +205,7 @@ class Events extends Component {
               ))}
             
             </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           ))}
           
         </View>
