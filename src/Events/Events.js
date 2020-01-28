@@ -32,6 +32,13 @@ class Events extends Component {
     }
   };
 
+  onEventLongPress = (event) => {
+    const { onEventLongPress } = this.props;
+    if (onEventLongPress) {
+        onEventLongPress(event);
+    }
+  };
+
   onEmptyPress = (event) => {
     const { onEventPress } = this.props;
     if (onEventPress) {
@@ -194,13 +201,13 @@ class Events extends Component {
               key={sectionIndex}
               style={styles.event}
             >
-        
               {eventsInSection.map(item => (
                 <Event
                   key={item.data.id}
                   event={item.data}
                   style={item.style}
                   onPress={this.onEventPress}
+                  onLongPress={this.onEventLongPress}
                 />
               ))}
             
@@ -221,7 +228,8 @@ Events.propTypes = {
   onEventPress: PropTypes.func,
   selectedDate: PropTypes.instanceOf(Date),
   times: PropTypes.arrayOf(PropTypes.string),
-  onEmptyCellPress:PropTypes.func
+  onEmptyCellPress:PropTypes.func,
+  onEventLongPress:PropTypes.func
 };
 
 Events.defaultProps = {

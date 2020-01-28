@@ -6,9 +6,10 @@ import {
 } from 'react-native';
 import styles from './Event.styles';
 
-const Event = ({ event, onPress, style }) => {
+const Event = ({ event, onPress,onLongPress,style }) => {
   return (
     <TouchableOpacity
+      onLongPress={()=>onLongPress(event)}
       onPress={() => onPress(event)}
       style={[styles.item, style, {
         backgroundColor: event.color,
@@ -31,6 +32,7 @@ Event.propTypes = {
   event: eventPropTypes.isRequired,
   onPress: PropTypes.func,
   style: PropTypes.object,
+  onLongPress:PropTypes.object
 };
 
 export default Event;

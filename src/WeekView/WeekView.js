@@ -102,7 +102,8 @@ export default class WeekView extends Component {
       formatDateHeader,
       onEventPress,
       events,
-      onEmptyCellPress
+      onEmptyCellPress,
+      onEventLongPress
     } = this.props;
     const { currentMoment } = this.state;
     const dates = this.prepareDates(currentMoment, numberOfDays);
@@ -148,6 +149,7 @@ export default class WeekView extends Component {
                     numberOfDays={numberOfDays}
                     onEventPress={onEventPress}
                     events={events}
+                    onEventLongPress={onEventLongPress}
                     onEmptyCellPress={onEmptyCellPress}
                   />
                 
@@ -172,7 +174,8 @@ WeekView.propTypes = {
   headerStyle: PropTypes.object,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   locale: PropTypes.string,
-  onEmptyCellPress:PropTypes.func
+  onEmptyCellPress:PropTypes.func,
+  onEventLongPress:PropTypes.func
 };
 
 WeekView.defaultProps = {
