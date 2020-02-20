@@ -49,53 +49,32 @@ export default class WeekView extends Component {
   generateTimes = () => {
     const times = [];
 
-    const startTime = new Date();
-    const endTime = new Date();
+    const startTime = moment().hours(this.props.minHours || 0).minutes(this.props.minMinutes || 0);
+    const endTime = moment().hours(this.props.maxHours || 0).minutes(this.props.maxMinutes || 0);
 
-    this.props.minHours && this.props.minHours !== 0 ? startTime.setHours(this.props.minHours) : startTime.setHours(0);
-    this.props.minMinutes && this.props.minMinutes !== 0 ? startTime.setMinutes(this.props.minMinutes) : startTime.setMinutes(0);
-
-    if (startTime.getMinutes() < 30) {
-      startTime.setMinutes(0);
-    }
-    
-    this.props.maxHours && this.props.maxHours !== 0 ? endTime.setHours(this.props.maxHours) : endTime.setHours(23);
-    this.props.maxMinutes && this.props.maxMinutes !== 0 ? endTime.setMinutes(this.props.maxMinutes) : endTime.setMinutes(30);
-
-    if (endTime.getMinutes() > 30) {
-      endTime.setMinutes(0);
-      endTime.setHours(endTime.getHours() + 1);
+    if (startTime.minutes() < 30) {
+      startTime.minutes(0);
     }
 
-    times.push(startTime);
-
-    for (let i = 0; i < TIME_LABELS_COUNT; i += 1) {
-      const time = new Date();
-      const minutes = i % 2 === 0 ? '00' : '30';
-      const hour = Math.floor(i / 2);
-
-      time.setHours(hour);
-      time.setMinutes(minutes);
-      times.push(time);
+    if (endTime.minutes() > 30) {
+      endTime.minutes(0).hours(endTime.hours() + 1);
     }
 
-    times.push(endTime);
+    const diffInHours = Math.abs(endTime.diff(startTime, 'hours'));
+    console.log(diffInHours);
+    const x = startTime.hour();
+    for (let i = 0; i <= diffInHours * 2; i += 1) {
+      const minutes = i % 2 === 0 ? 0 : 30;
+      const hour = Math.floor(i / 2) + x;
 
-    const filteredTimes = [];
 
-    for (let index = 0; index < times.length; index++) {
-      const tempTime = times[index];
+      startTime.hours(hour);
+      startTime.minutes(minutes);
 
-      if (tempTime.getTime() >= startTime.getTime() && 
-      tempTime.getTime() <= endTime.getTime() && 
-      !filteredTimes.some(x => x.getTime() === tempTime.getTime())) {
-        filteredTimes.push(tempTime);
-      }
+      times.push(startTime.format('HH:mm'));
     }
 
-    return filteredTimes.map(x => {
-      return `${('0' + x.getHours()).slice(-2)}:${('0' + x.getMinutes()).slice(-2)}`;
-    });;
+    return times;
   };
 
   scrollEnded = (event) => {
