@@ -28,6 +28,10 @@ export default class WeekView extends Component {
     this.times = this.generateTimes();
   }
 
+  shouldComponentUpdate(prevProps, prevState) {
+		return prevProps !== this.props && prevState !== this.state;
+	}
+
   componentDidMount() {
     requestAnimationFrame(() => {
       this.calendar.scrollTo({ y: 0, x: 2 * (SCREEN_WIDTH - 70), animated: false });
@@ -35,9 +39,6 @@ export default class WeekView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedDate) {
-      this.setState({ currentMoment: nextProps.selectedDate });
-    }
     if (nextProps.locale !== this.props.locale) {
       setLocale(nextProps.locale);
     }
