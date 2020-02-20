@@ -29,7 +29,7 @@ export default class WeekView extends Component {
   }
 
   shouldComponentUpdate(prevProps, prevState) {
-		return prevProps !== this.props && prevState !== this.state;
+		return prevProps !== this.props || prevState !== this.state;
 	}
 
   componentDidMount() {
