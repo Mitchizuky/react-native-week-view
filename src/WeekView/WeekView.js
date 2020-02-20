@@ -25,9 +25,7 @@ export default class WeekView extends Component {
     };
     this.calendar = null;
     setLocale(props.locale);
-    this.times = this.generateTimes();
   }
-
   shouldComponentUpdate(prevProps, prevState) {
 		return prevProps !== this.props || prevState !== this.state;
 	}
@@ -149,6 +147,7 @@ export default class WeekView extends Component {
     } = this.props;
     const { currentMoment } = this.state;
     const dates = this.prepareDates(currentMoment, numberOfDays);
+    const times = this.generateTimes();
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -162,7 +161,7 @@ export default class WeekView extends Component {
         <ScrollView>
           <View style={styles.scrollViewContent}>
             <View style={styles.timeColumn}>
-              {this.times.map(time => (
+              {times.map(time => (
                 <View key={time} style={styles.timeLabel}>
                   <Text style={styles.timeText}>{time}</Text>
                 </View>
@@ -186,7 +185,7 @@ export default class WeekView extends Component {
                     numberOfDays={numberOfDays}
                     currentDate={date}
                     key={dates}
-                    times={this.times}
+                    times={times}
                     selectedDate={date.toDate()}
                     numberOfDays={numberOfDays}
                     onEventPress={onEventPress}
