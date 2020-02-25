@@ -15,11 +15,8 @@ import Event from '../Event/Event';
 import styles, { CONTENT_OFFSET } from './Events.styles';
 
 const { width: screenWidth } = Dimensions.get('window');
-const TIME_LABELS_COUNT = 48;
 const MINUTES_IN_HOUR = 60;
-const MINUTES_IN_DAY = MINUTES_IN_HOUR * 24;
 const ROW_HEIGHT = 40;
-const CONTENT_HEIGHT = ROW_HEIGHT * TIME_LABELS_COUNT;
 const TIME_LABEL_WIDTH = 40;
 const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 35;
 const CELL_VALUE_IN_MINUTES = 30;
@@ -82,11 +79,14 @@ class Events extends Component {
   };
 
   getStyleForEvent = (item) => {
-    const startHours = moment(item.startDate).hours();
+    const contentHeight = ROW_HEIGHT * this.props.times.length;
+    const minutesInDay = MINUTES_IN_HOUR * this.props.times.length / 2;
+
+    const startHours = moment(item.startDate).hours() - this.props.startTime;
     const startMinutes = moment(item.startDate).minutes();
     const totalStartMinutes = (startHours * MINUTES_IN_HOUR) + startMinutes;
-    const topOffset = (totalStartMinutes * CONTENT_HEIGHT) / MINUTES_IN_DAY;
-    const height = (moment(item.endDate).diff(item.startDate, 'minutes') * CONTENT_HEIGHT) / MINUTES_IN_DAY;
+    const topOffset = Math.floor((totalStartMinutes * contentHeight) / minutesInDay);
+    const height = (moment(item.endDate).diff(item.startDate, 'minutes') * contentHeight) / minutesInDay;
     const width = this.getEventItemWidth();
 
     return {
@@ -229,7 +229,8 @@ Events.propTypes = {
   selectedDate: PropTypes.instanceOf(Date),
   times: PropTypes.arrayOf(PropTypes.string),
   onEmptyCellPress:PropTypes.func,
-  onEventLongPress:PropTypes.func
+  onEventLongPress:PropTypes.func,
+  startTime: PropTypes.number
 };
 
 Events.defaultProps = {
