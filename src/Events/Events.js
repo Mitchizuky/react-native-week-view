@@ -150,7 +150,7 @@ class Events extends Component {
     let cellRowIndex = parseInt((evt.nativeEvent.locationY+16)/40);
 
     let cellIndexToMinutes = cellRowIndex * CELL_VALUE_IN_MINUTES;
-    let selectedHour = cellIndexToMinutes/60;
+    let selectedHour = this.props.startTime + (cellIndexToMinutes/60);
     let selectedMinutes = cellIndexToMinutes%60;
 
     if(selectedMinutes === 30){
