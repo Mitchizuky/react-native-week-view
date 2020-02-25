@@ -61,7 +61,6 @@ export default class WeekView extends Component {
     }
 
     const diffInHours = Math.abs(endTime.diff(startTime, 'hours'));
-    console.log(diffInHours);
     const x = startTime.hour();
     for (let i = 0; i <= diffInHours * 2; i += 1) {
       const minutes = i % 2 === 0 ? 0 : 30;
@@ -171,6 +170,7 @@ export default class WeekView extends Component {
                     events={events}
                     onEventLongPress={onEventLongPress}
                     onEmptyCellPress={onEmptyCellPress}
+                    startTime={this.props.minHours}
                   />
                 
                 </View>
