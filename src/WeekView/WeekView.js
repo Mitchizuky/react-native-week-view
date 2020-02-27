@@ -121,7 +121,8 @@ export default class WeekView extends Component {
       onEventPress,
       events,
       onEmptyCellPress,
-      onEventLongPress
+      onEventLongPress,
+      onEmptyCellLongPress
     } = this.props;
     const { currentMoment } = this.state;
     const dates = this.prepareDates(currentMoment, numberOfDays);
@@ -170,6 +171,7 @@ export default class WeekView extends Component {
                     events={events}
                     onEventLongPress={onEventLongPress}
                     onEmptyCellPress={onEmptyCellPress}
+                    onEmptyCellLongPress={onEmptyCellLongPress}
                     startTime={this.props.minHours}
                   />
                 
@@ -196,6 +198,7 @@ WeekView.propTypes = {
   locale: PropTypes.string,
   onEmptyCellPress:PropTypes.func,
   onEventLongPress:PropTypes.func,
+  onEmptyCellLongPress: PropTypes.func,
   minHours: PropTypes.number,
   minMinutes: PropTypes.number,
   maxHours: PropTypes.number,

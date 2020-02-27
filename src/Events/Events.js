@@ -32,7 +32,7 @@ class Events extends Component {
   onEventLongPress = (event) => {
     const { onEventLongPress } = this.props;
     if (onEventLongPress) {
-        onEventLongPress(event);
+      onEventLongPress(event);
     }
   };
 
@@ -40,6 +40,13 @@ class Events extends Component {
     const { onEventPress } = this.props;
     if (onEventPress) {
       onEventPress(event);
+    }
+  };
+
+  onEmptyLongPress = (event) => {
+    const { onEmptyCellLongPress } = this.props;
+    if (onEmptyCellLongPress) {
+      onEmptyCellLongPress(event);
     }
   };
 
@@ -111,7 +118,7 @@ class Events extends Component {
           // if left and top of previous event collides with current item,
           // move current item to the right and update new width for both
           const foundDuplicate = previousEvent.style.left === style.left
-          && previousEvent.style.top + previousEvent.style.height >= style.top;
+            && previousEvent.style.top + previousEvent.style.height >= style.top;
           if (foundDuplicate) {
             numberOfDuplicate += 1;
             style.left = 5 + (itemWidth / numberOfDuplicate);
@@ -143,34 +150,49 @@ class Events extends Component {
     return sortedEvents;
   };
 
-  handleEmptyCellPress(evt,date,columnIndex){
-   
+  createCellData(evt, date, columnIndex) {
     let selectedDate = date.toDate();
     selectedDate.setDate(selectedDate.getDate() + columnIndex);
-    let cellRowIndex = parseInt((evt.nativeEvent.locationY+16)/40);
+    let cellRowIndex = parseInt((evt.nativeEvent.locationY + 16) / 40);
 
     let cellIndexToMinutes = cellRowIndex * CELL_VALUE_IN_MINUTES;
-    let selectedHour = this.props.startTime + (cellIndexToMinutes/60);
-    let selectedMinutes = cellIndexToMinutes%60;
+    let selectedHour = this.props.startTime + (cellIndexToMinutes / 60);
+    let selectedMinutes = cellIndexToMinutes % 60;
 
-    if(selectedMinutes === 30){
-        selectedMinutes=0;
+    if (selectedMinutes === 30) {
+      selectedMinutes = 0;
     }
-    else{
-        selectedMinutes=30;
-        selectedHour = selectedHour-1;
+    else {
+      selectedMinutes = 30;
+      selectedHour = selectedHour - 1;
     }
 
-    selectedDate.setHours(selectedHour,selectedMinutes,0,0);
+    selectedDate.setHours(selectedHour, selectedMinutes, 0, 0);
 
     let cellData = {
-        hourCellIndex:cellRowIndex,
-        selectedDate:selectedDate
+      hourCellIndex: cellRowIndex,
+      selectedDate: selectedDate
     }
+
+    return cellData;
+  }
+
+  handleEmptyCellPress(evt, date, columnIndex) {
+
+    const cellData = this.createCellData(evt, date, columnIndex)
 
     const { onEmptyCellPress } = this.props;
     if (onEmptyCellPress) {
       onEmptyCellPress(cellData);
+    }
+  }
+
+  handleEmptyLongCellPress(evt, date, columnIndex) {
+    const cellData = this.createCellData(evt, date, columnIndex)
+
+    const { onEmptyCellLongPress } = this.props;
+    if (onEmptyCellLongPress) {
+      onEmptyCellLongPress(cellData);
     }
   }
 
@@ -187,34 +209,37 @@ class Events extends Component {
     totalEvents = this.getEventsWithPosition(totalEvents);
     return (
       <View style={styles.container}>
-             {times.map(time => (
-                <View key={time} style={[styles.timeRow,{backgroundColor:'white'}]}>
-                    <View style={styles.timeLabelLine} >
-                    </View>
-                </View>
-        ))}
-        <View  style={[styles.events]}>
-        
-          {totalEvents.map((eventsInSection, sectionIndex) => (
-            <TouchableWithoutFeedback   onPress={(evt) => this.handleEmptyCellPress(evt,currentDate,sectionIndex)}>
-            <View
-              key={sectionIndex}
-              style={styles.event}
-            >
-              {eventsInSection.map(item => (
-                <Event
-                  key={item.data.id}
-                  event={item.data}
-                  style={item.style}
-                  onPress={this.onEventPress}
-                  onLongPress={this.onEventLongPress}
-                />
-              ))}
-            
+        {times.map(time => (
+          <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+            <View style={styles.timeLabelLine} >
             </View>
+          </View>
+        ))}
+        <View style={[styles.events]}>
+
+          {totalEvents.map((eventsInSection, sectionIndex) => (
+            <TouchableWithoutFeedback
+              onLongPress={(evt) => this.handleEmptyLongCellPress(evt, currentDate, sectionIndex)}
+              onPress={(evt) => this.handleEmptyCellPress(evt, currentDate, sectionIndex)}
+            >
+              <View
+                key={sectionIndex}
+                style={styles.event}
+              >
+                {eventsInSection.map(item => (
+                  <Event
+                    key={item.data.id}
+                    event={item.data}
+                    style={item.style}
+                    onPress={this.onEventPress}
+                    onLongPress={this.onEventLongPress}
+                  />
+                ))}
+
+              </View>
             </TouchableWithoutFeedback>
           ))}
-          
+
         </View>
       </View>
     );
@@ -222,14 +247,16 @@ class Events extends Component {
 }
 
 Events.propTypes = {
-  currentDate:String,
+  currentDate: String,
   numberOfDays: PropTypes.oneOf([1, 3, 7]).isRequired,
   events: PropTypes.arrayOf(Event.propTypes.event),
   onEventPress: PropTypes.func,
   selectedDate: PropTypes.instanceOf(Date),
   times: PropTypes.arrayOf(PropTypes.string),
-  onEmptyCellPress:PropTypes.func,
-  onEventLongPress:PropTypes.func,
+  onEmptyCellPress: PropTypes.func,
+  onEmptyCellLongPress: PropTypes.func,
+  onEventLongPress: PropTypes.func,
+  onEmptyCellLongPress: PropTypes.func,
   startTime: PropTypes.number
 };
 
