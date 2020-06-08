@@ -40,6 +40,13 @@ export default class WeekView extends Component {
     if (nextProps.locale !== this.props.locale) {
       setLocale(nextProps.locale);
     }
+
+    if (nextProps.selectedDate !== this.props.selectedDate) {
+      this.setState({
+        currentMoment: nextProps.selectedDate,
+      });
+    }
+
   }
 
   componentDidUpdate() {
@@ -104,7 +111,7 @@ export default class WeekView extends Component {
 
   prepareDates = (currentMoment, numberOfDays) => {
     const dates = [];
-    for (let i = -2; i < 3; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       const date = moment(currentMoment).add(numberOfDays * i, 'd');
       dates.push(date);
     }
@@ -150,7 +157,7 @@ export default class WeekView extends Component {
               horizontal
               pagingEnabled
               automaticallyAdjustContentInsets={false}
-              onMomentumScrollEnd={this.scrollEnded}
+              //onMomentumScrollEnd={this.scrollEnded}
               ref={this.scrollViewRef}
             >
               {dates.map(date => (
