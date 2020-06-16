@@ -72,7 +72,7 @@ const Title = ({ numberOfDays, selectedDate }) => { // eslint-disable-line react
       <Text
         style={[styles.text, { fontSize: getFontSizeHeader(numberOfDays) }]}
       >
-        {getCurrentMonth(selectedDate)}
+        {/* {getCurrentMonth(selectedDate)} */}
       </Text>
     </View>
   );

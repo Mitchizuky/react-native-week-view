@@ -17,13 +17,16 @@ const styles = StyleSheet.create({
     height: 40,
   },
   timeText: {
-    fontSize: 13,
-    textAlign: 'center',
-    color:'#000000'
+    paddingTop: 9,
+    paddingLeft: 10,
+    fontSize: 16,
+    color:'#ababab',
+    borderTopColor: '#E9EDF0',
+    borderTopWidth: 1
   },
   timeColumn: {
-    paddingTop: 7,
-    width: 70,
+    paddingTop: 0,
+    width: 40,
   },
 });
 

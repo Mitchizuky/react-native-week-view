@@ -15,7 +15,6 @@ import Header from '../Header/Header';
 import styles from './WeekView.styles';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const TIME_LABELS_COUNT = 48;
 
 export default class WeekView extends Component {
   constructor(props) {
@@ -70,16 +69,17 @@ export default class WeekView extends Component {
     const diffInHours = Math.abs(endTime.diff(startTime, 'hours'));
     const x = startTime.hour();
     for (let i = 0; i <= diffInHours * 2; i += 1) {
-      const minutes = i % 2 === 0 ? 0 : 30;
-      const hour = Math.floor(i / 2) + x;
+        const minutes = i % 2 === 0 ? 0 : 30;
+        const hour = Math.floor(i / 2) + x;
 
 
-      startTime.hours(hour);
-      startTime.minutes(minutes);
+        startTime.hours(hour);
+        startTime.minutes(minutes);
 
-      times.push(startTime.format('HH:mm'));
+        // times.push(startTime.format('HH:mm'));
+        times.push(startTime.format('H'));
     }
-
+    
     return times;
   };
 
@@ -147,11 +147,21 @@ export default class WeekView extends Component {
         <ScrollView>
           <View style={styles.scrollViewContent}>
             <View style={styles.timeColumn}>
-              {times.map(time => (
-                <View key={time} style={styles.timeLabel}>
-                  <Text style={styles.timeText}>{time}</Text>
-                </View>
-              ))}
+              {times.map((time, index) => {
+                if (index % 2 === 0) {
+                    return (
+                        <View key={time} style={styles.timeLabel}>
+                            <Text style={[styles.timeText, {borderTopWidth: 2}]}>{time}</Text>
+                        </View>
+                    )
+                }
+
+                return (
+                    <View key={time} style={styles.timeLabel}>
+                        <Text style={styles.timeText}>{''}</Text>
+                    </View>
+                )
+              })}
             </View>
             <ScrollView
               horizontal
@@ -164,7 +174,7 @@ export default class WeekView extends Component {
                
                 <View
                   key={date}
-                  style={{ flex: 1, width: SCREEN_WIDTH - 70}}
+                  style={{ flex: 1, width: SCREEN_WIDTH - 40}}
                 >
                  
                   <Events

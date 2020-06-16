@@ -9,6 +9,17 @@ import {
 import styles from './Event.styles';
 
 const Event = ({ event, onPress,onLongPress,style }) => {
+
+    const getTime = () => {
+        return ('0' + event.startDate.getHours()).slice(-2) +
+        ':' +
+        ('0' + event.startDate.getMinutes()).slice(-2) +
+        ' - ' +
+        ('0' + event.endDate.getHours()).slice(-2) +
+        ':' +
+        ('0' + event.endDate.getMinutes()).slice(-2);
+    }
+    console.log(event.isClose);
   if (event.isClose) {
       return (
           <TouchableWithoutFeedback
@@ -35,6 +46,7 @@ const Event = ({ event, onPress,onLongPress,style }) => {
           }]}
       >
           <Text style={styles.description}>{event.description}</Text>
+          <Text style={styles.time}>{getTime()}</Text>
       </TouchableOpacity>
 );
 };
