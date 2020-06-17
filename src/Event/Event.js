@@ -19,7 +19,7 @@ const Event = ({ event, onPress,onLongPress,style }) => {
         ':' +
         ('0' + event.endDate.getMinutes()).slice(-2);
     }
-    console.log(event.isClose);
+
   if (event.isClose) {
       return (
           <TouchableWithoutFeedback
