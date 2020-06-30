@@ -2,15 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const GREY_COLOR = '#E9EDF0';
 const ROW_HEIGHT = 40;
-export const CONTENT_OFFSET = 16;
+export const CONTENT_OFFSET = 1;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
+    paddingTop: 0,
   },
   timeRow: {
     flex: 0,
     height: ROW_HEIGHT,
+    backgroundColor: 'transparent'
   },
   timeLabelLine: {
     height: 1,
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     top: 0,
-    backgroundColor: 'transparent',
   },
 });
 

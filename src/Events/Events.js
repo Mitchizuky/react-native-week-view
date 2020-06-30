@@ -18,7 +18,7 @@ const { width: screenWidth } = Dimensions.get('window');
 const MINUTES_IN_HOUR = 60;
 const ROW_HEIGHT = 40;
 const TIME_LABEL_WIDTH = 40;
-const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 35;
+const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 3;
 const CELL_VALUE_IN_MINUTES = 30;
 
 class Events extends Component {
@@ -209,12 +209,23 @@ class Events extends Component {
     totalEvents = this.getEventsWithPosition(totalEvents);
     return (
       <View style={styles.container}>
-        {times.map(time => (
-          <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
-            <View style={styles.timeLabelLine} >
-            </View>
-          </View>
-        ))}
+        {times.map((time, index) => {
+            if (index % 2 === 0) {
+                return (
+                    <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+                        <View style={[styles.timeLabelLine, {height: 2}]} >
+                        </View>
+                    </View>
+                )
+            }
+
+            return (
+                <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+                    <View style={[styles.timeLabelLine]} >
+                    </View>
+                </View>
+            )
+        })}
         <View style={[styles.events]}>
 
           {totalEvents.map((eventsInSection, sectionIndex) => (

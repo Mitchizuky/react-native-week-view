@@ -6,14 +6,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingVertical: 3,
     paddingHorizontal: 3,
-    borderWidth: 0.5,
-    borderColor: '#ababab',
+    borderWidth: 1,
+    borderColor: '#E9EDF0',
     flex: 1,
     marginRight: 1,
-    borderRadius: 10
+    borderRadius: 10,
+    paddingLeft: 7.5,
+    paddingTop: 5
   },
   description: {
-    color: '#000',
+    color: 'rgb(0,6,69)',
+    fontWeight: 'bold',
+    //textAlign: 'center',
+    fontSize: 12,
+  },
+  time: {
+    color: 'rgb(0,6,69)',
+
     //textAlign: 'center',
     fontSize: 12,
   },

@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   title: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 70,
-    paddingLeft:5,
-    borderColor: '#fff',
-    borderTopWidth: 1,
+    width: 40,
+    paddingLeft: 5,
+    borderBottomColor:'#E9EDF0',
+    borderBottomWidth: 1,
     textAlign:'center'
   },
   columns: {
@@ -23,12 +23,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#fff',
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
+    borderBottomColor: '#E9EDF0',
+    borderBottomWidth: 1,
   },
   text: {
-    color: '#fff',
+    color: '#ababab',
   },
 });
 
