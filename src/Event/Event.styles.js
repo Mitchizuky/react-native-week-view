@@ -11,8 +11,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 1,
     borderRadius: 10,
-    paddingLeft: 7.5,
-    paddingTop: 5
+    paddingLeft: 5.5,
+    paddingTop: 5,
+    overflow: 'hidden'
   },
   description: {
     color: 'rgb(0,6,69)',

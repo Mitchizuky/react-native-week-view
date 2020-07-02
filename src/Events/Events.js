@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import {
   View,
   Dimensions,
@@ -18,7 +18,7 @@ const { width: screenWidth } = Dimensions.get('window');
 const MINUTES_IN_HOUR = 60;
 const ROW_HEIGHT = 40;
 const TIME_LABEL_WIDTH = 40;
-const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 3;
+const EVENTS_CONTAINER_WIDTH = screenWidth - TIME_LABEL_WIDTH - 1;
 const CELL_VALUE_IN_MINUTES = 30;
 
 class Events extends Component {
@@ -118,10 +118,10 @@ class Events extends Component {
           // if left and top of previous event collides with current item,
           // move current item to the right and update new width for both
           const foundDuplicate = previousEvent.style.left === style.left
-            && previousEvent.style.top + previousEvent.style.height >= style.top;
+            && previousEvent.style.top + previousEvent.style.height > style.top;
           if (foundDuplicate) {
             numberOfDuplicate += 1;
-            style.left = 5 + (itemWidth / numberOfDuplicate);
+            style.left = (itemWidth / numberOfDuplicate);
             style.width = itemWidth / numberOfDuplicate;
             previousEvent.style.width = itemWidth / numberOfDuplicate;
           }
@@ -137,6 +137,7 @@ class Events extends Component {
   };
 
   getEventItemWidth = () => {
+
     const { numberOfDays } = this.props;
     return EVENTS_CONTAINER_WIDTH / numberOfDays;
   };
@@ -210,21 +211,21 @@ class Events extends Component {
     return (
       <View style={styles.container}>
         {times.map((time, index) => {
-            if (index % 2 === 0) {
-                return (
-                    <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
-                        <View style={[styles.timeLabelLine, {height: 2}]} >
-                        </View>
-                    </View>
-                )
-            }
-
+          if (index % 2 === 0) {
             return (
-                <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
-                    <View style={[styles.timeLabelLine]} >
-                    </View>
+              <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+                <View style={[styles.timeLabelLine, { height: 2 }]} >
                 </View>
+              </View>
             )
+          }
+
+          return (
+            <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+              <View style={[styles.timeLabelLine]} >
+              </View>
+            </View>
+          )
         })}
         <View style={[styles.events]}>
 
