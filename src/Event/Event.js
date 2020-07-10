@@ -45,7 +45,7 @@ const Event = ({ event, onPress,onLongPress,style }) => {
               backgroundColor: event.color,
           }]}
       >
-          <Text style={[styles.description,{marginBottom:scale(5)}]}>{event.services}</Text>
+          <Text style={[styles.description,{marginBottom:5}]}>{event.services}</Text>
           <Text style={styles.description}>{event.description}</Text>
           <Text style={styles.time}>{getTime()}</Text>
       </TouchableOpacity>
