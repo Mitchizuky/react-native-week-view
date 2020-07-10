@@ -45,9 +45,9 @@ const Event = ({ event, onPress,onLongPress,style }) => {
               backgroundColor: event.color,
           }]}
       >
-          <Text style={[styles.description,{marginBottom:5}]}>{event.services}</Text>
           <Text style={styles.description}>{event.description}</Text>
           <Text style={styles.time}>{getTime()}</Text>
+          <Text style={[styles.time,event.services ? {marginTop:5} : {height:0}]}>{event.services.replace(/[\[']+/g, "").replace(/[\]']+/g, ", ").substring(1).substring(0,event.services.length-3)}</Text>
       </TouchableOpacity>
 );
 };
