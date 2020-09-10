@@ -150,14 +150,14 @@ export default class WeekView extends Component {
               {times.map((time, index) => {
                 if (index % 2 === 0) {
                     return (
-                        <View key={time} style={styles.timeLabel}>
+                        <View key={index} style={styles.timeLabel}>
                             <Text style={[styles.timeText, {borderTopWidth: 2}]}>{time}</Text>
                         </View>
                     )
                 }
 
                 return (
-                    <View key={time} style={styles.timeLabel}>
+                    <View key={index} style={styles.timeLabel}>
                         <Text style={styles.timeText}>{''}</Text>
                     </View>
                 )
