@@ -213,7 +213,7 @@ class Events extends Component {
         {times.map((time, index) => {
           if (index % 2 === 0) {
             return (
-              <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+              <View key={index} style={[styles.timeRow, { backgroundColor: 'white' }]}>
                 <View style={[styles.timeLabelLine, { height: 2 }]} >
                 </View>
               </View>
@@ -221,7 +221,7 @@ class Events extends Component {
           }
 
           return (
-            <View key={time} style={[styles.timeRow, { backgroundColor: 'white' }]}>
+            <View key={index} style={[styles.timeRow, { backgroundColor: 'white' }]}>
               <View style={[styles.timeLabelLine]} >
               </View>
             </View>
@@ -238,9 +238,9 @@ class Events extends Component {
                 key={sectionIndex}
                 style={styles.event}
               >
-                {eventsInSection.map(item => (
+                {eventsInSection.map((item,index) => (
                   <Event
-                    key={item.data.id}
+                    key={index}
                     event={item.data}
                     style={item.style}
                     onPress={this.onEventPress}
