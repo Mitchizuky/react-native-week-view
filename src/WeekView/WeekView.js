@@ -171,17 +171,17 @@ export default class WeekView extends Component {
               //onMomentumScrollEnd={this.scrollEnded}
               ref={this.scrollViewRef}
             >
-              {dates.map(date => (
+              {dates.map((date,index) => (
                
                 <View
-                  key={date}
+                  key={index}
                   style={{ flex: 1, width: SCREEN_WIDTH - 40}}
                 >
                  
                   <Events
                     numberOfDays={numberOfDays}
                     currentDate={date}
-                    key={dates}
+                    key={index}
                     times={times}
                     selectedDate={date.toDate()}
                     numberOfDays={numberOfDays}
