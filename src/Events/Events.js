@@ -56,10 +56,10 @@ class Events extends Component {
     // is events for specific day in range
     const total = [];
     let initial = 0;
-    if (numberOfDays === 7) {
-      initial = 1;
-      initial -= moment().isoWeekday();
-    }
+    // if (numberOfDays === 7) {
+    //   initial = 1;
+    //   initial -= moment().isoWeekday();
+    // }
     for (let i = initial; i < (numberOfDays + initial); i += 1) {
       // current date in numberOfDays, calculated from selected date
       const currenDate = moment(selectedDate).add(i, 'd');
